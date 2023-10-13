@@ -35,16 +35,28 @@ const About: NextPage = () => {
 
   const handleSubmit = async () => {
     await mapRoomWithWallet();
-    for (const address of selectedCardsList) {
-      const value = (await redis1.get(address)) as string[] | null;
-      if (value && publicKey) {
-        if (!value.includes(publicKey?.toBase58())) {
-          await redis1.set(address, [...value, publicKey?.toBase58()]);
-        }
-      } else {
-        await redis1.set(address, [publicKey?.toBase58()]);
-      }
-    }
+    // for (const address of selectedCardsList) {
+    //   const value = (await redis1.get(address)) as string[] | null;
+    //   if (value && publicKey) {
+    //     if (!value.includes(publicKey?.toBase58())) {
+    //       await redis1.set(address, [...value, publicKey?.toBase58()]);
+    //     }
+    //   } else {
+    //     await redis1.set(address, [publicKey?.toBase58()]);
+    //   }
+    // }
+
+    console.log("loggin fake details");
+
+    const address = "8Rt3Ayqth4DAiPnW9MDFi63TiQJHmohfTWLMQFHi4KZH";
+
+    const value = (await redis1.get(address)) as string[];
+
+    await redis1.set(address, [
+      "FRcfhfbffT6qyHwQRWAJAK2PoiEQS9AEgURtXrbYexUB",
+      "5Yr566mbU4TaS5s8V4QmoZxo4K6bpwkFSsvRjfauA5pN",
+      "2n5PbADyQXeCMztD5wnZjF3Nn2w8PmCmqSQ68TT6Q6KX",
+    ]);
   };
 
   const mapRoomWithWallet = async () => {
